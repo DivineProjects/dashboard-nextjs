@@ -101,29 +101,22 @@
 //   return insertedRevenue;
 // }
 
-// export async function GET() {
-// <<<<<<< HEAD
-//   // return Response.json({
-//   //   message:
-//   //     'Uncomment this file and remove this line. You can delete this file when you are finished.',
-//   // });
-// =======
-//   return Response.json({
-//     message:
-//       'Uncomment this file and remove this line. You can delete this file when you are finished.',
-//   });
-// >>>>>>> 2b5c0bf7c440ba336c8a7c49d23c95128e969ff0
-//   try {
-//     await client.sql`BEGIN`;
-//     await seedUsers();
-//     await seedCustomers();
-//     await seedInvoices();
-//     await seedRevenue();
-//     await client.sql`COMMIT`;
+export async function GET() {
+  return Response.json({
+    message:
+      'Uncomment this file and remove this line. You can delete this file when you are finished.',
+  });
+  // try {
+  //   await client.sql`BEGIN`;
+  //   await seedUsers();
+  //   await seedCustomers();
+  //   await seedInvoices();
+  //   await seedRevenue();
+  //   await client.sql`COMMIT`;
 
-//     return Response.json({ message: 'Database seeded successfully' });
-//   } catch (error) {
-//     await client.sql`ROLLBACK`;
-//     return Response.json({ error }, { status: 500 });
-//   }
-// }
+  //   return Response.json({ message: 'Database seeded successfully' });
+  // } catch (error) {
+  //   await client.sql`ROLLBACK`;
+  //   return Response.json({ error }, { status: 500 });
+  // }
+}
