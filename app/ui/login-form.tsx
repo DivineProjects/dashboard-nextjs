@@ -12,6 +12,10 @@ import { useActionState } from 'react';
 import { authenticate } from '@/app/lib/actions';
 import { useSearchParams } from 'next/navigation';
 
+
+
+
+
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
@@ -84,3 +88,6 @@ export default function LoginForm() {
     </form>
   );
 }
+
+
+
