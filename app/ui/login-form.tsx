@@ -15,7 +15,7 @@ import { useSearchParams } from 'next/navigation';
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || `${window.location.origin}/dashboard`;
-  console.log(callbackUrl)
+
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined,
