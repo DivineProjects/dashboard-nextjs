@@ -1,0 +1,10 @@
+{
+    "redirects": [
+      {
+        "source": "/dashboard",
+        "destination": "https://dashboard-preview-rho.vercel.app/dashboard",
+        "permanent": true
+      }
+    ]
+  }
+  
