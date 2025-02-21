@@ -1,23 +1,25 @@
- 'use client';
-import {useDebouncedCallback} from 'use-debounce';
+'use client';
+
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = useDebouncedCallback((term: string) =>{
-    // console.log(`Searching... ${term}`);
-
+  // Catch user input
+  const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams);
+    // Update URL data (not sent to URL yet)
     params.set('page', '1');
     if (term) {
-      params.set('query', term)
+      params.set('query', term);
     } else {
       params.delete('query');
     }
+    // Update URL
     replace(`${pathname}?${params.toString()}`);
   }, 300);
 
@@ -32,7 +34,8 @@ export default function Search({ placeholder }: { placeholder: string }) {
         onChange={(e) => {
           handleSearch(e.target.value);
         }}
-        defaultValue={searchParams.get('query')?.toString()}
+        // Sync URL and input
+        defaultValue={searchParams.get('query')?.toString()} // Use value rather than defaultValue if using state. We're using URL.
       />
       <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
     </div>
