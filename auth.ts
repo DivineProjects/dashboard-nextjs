@@ -4,7 +4,7 @@ import { authConfig } from './auth.config';
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import type { User } from '@/app/lib/definitions';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
  
 async function getUser(email: string): Promise<User | undefined> {
   try {
@@ -29,12 +29,11 @@ export const { auth, signIn, signOut } = NextAuth({
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
           if (!user) return null;
-          const passwordsMatch = await bcrypt.compare(password, user.password)
+          const passwordsMatch = await bcrypt.compare(password, user.password);
 
-          if(passwordsMatch) return user;
+          if (passwordsMatch) return user;
         }
-        
-        console.warn('Invalid credentials');
+ 
         return null;
       },
     }),
