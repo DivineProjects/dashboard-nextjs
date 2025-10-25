@@ -1,32 +1,31 @@
 import type { NextAuthConfig } from "next-auth";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-export const authConfig = {
+export const authConfig: NextAuthConfig = {
   pages: {
     signIn: "/login",
   },
+
   callbacks: {
-    /**
-     * Runs on every request. Use this to protect routes.
-     */
     authorized({ auth, request }) {
-      const { nextUrl } = request;
+      const nextUrl = (request as NextRequest).nextUrl;
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
 
       if (isOnDashboard && !isLoggedIn) {
-        // Not logged in → redirect to login
+        // Redirect unauthenticated users → login
         return NextResponse.redirect(new URL("/login", nextUrl));
       }
 
       if (!isOnDashboard && isLoggedIn && nextUrl.pathname === "/login") {
-        // Logged in → redirect from login page to dashboard
+        // Redirect logged-in users away from login
         return NextResponse.redirect(new URL("/dashboard", nextUrl));
       }
 
-      // Default: allow request
       return true;
     },
   },
-  providers: [], // We'll add real providers below
-} satisfies NextAuthConfig;
+
+  providers: [],
+};
